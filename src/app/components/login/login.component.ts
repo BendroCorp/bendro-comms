@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
       this.loginSubmitting = true;
       this.authService.login(this.email, this.password, this.tfaCode).subscribe((response) => {
         if (!(response instanceof HttpErrorResponse)) {
-          console.log(response);
-          
+          console.log(response.id_token);
+
           // set the session
-          this.authService.setSession(response);
+          this.authService.setSession(response.id_token);
 
           // direct to the right place
           this.messageService.addInfo('Login successful!');

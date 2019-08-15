@@ -4,8 +4,10 @@ import { AppConfig } from '../environments/environment';
 
 @Injectable()
 export class Globals {
-  wsRoot: string = (AppConfig.production) ? 'wss://api.bendrocorp.com/cable' : 'ws://localhost:3000/cable';
-  baseUrlRoot: string = (AppConfig.production) ? 'https://api.bendrocorp.com' : 'http://localhost:3000';
-  baseAngularRoot: string = (AppConfig.production) ? 'https://my.bendrocorp.com' : 'http://localhost:4200';
-  baseUrl: string = this.baseUrlRoot + '/api';  
+  forceProduction: boolean = false;
+
+  readonly wsRoot: string = (AppConfig.production || this.forceProduction) ? 'wss://api.bendrocorp.com/cable' : 'ws://localhost:3000/cable';
+  readonly baseUrlRoot: string = (AppConfig.production || this.forceProduction) ? 'https://api.bendrocorp.com' : 'http://localhost:3000';
+  readonly baseAngularRoot: string = (AppConfig.production || this.forceProduction) ? 'https://my.bendrocorp.com' : 'http://localhost:4200';
+  readonly baseUrl: string = this.baseUrlRoot + '/api';
 }

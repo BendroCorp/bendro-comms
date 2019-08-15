@@ -117,7 +117,7 @@ export class ChatLargeComponent implements OnInit, OnDestroy {
         this.chats = response;
 
         this.channel = this.cableService
-          .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveUserSession().token}`)
+          .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveSession()}`)
           .channel('ChatChannel'); // , {room : 'Best Room'}
 
         this.channel.connected().subscribe(() => {

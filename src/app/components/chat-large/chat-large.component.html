@@ -16,7 +16,7 @@
           <img src="{{baseUrl + chat.user.main_character_avatar_url}}" alt="">
         </div>
         <div class="chat-body">
-          <h5>{{chat.user.main_character_full_name}} <span class="font-size: 6px !important;"><small style="color: #999">{{chat.created_at | date}}</small></span></h5>
+          <h5>{{chat.user.main_character_full_name}} <span class="font-size: 6px !important;"><small style="color: #999">{{chat.created_at | date | amTimeAgo}}</small></span></h5>
           <p class="chat-body-text" [innerHtml]="parseChatText(chat.text) | safeHtml"></p>
         </div>
       </li>

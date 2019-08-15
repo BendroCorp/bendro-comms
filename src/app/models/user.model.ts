@@ -1,7 +1,6 @@
-import { Character } from "./character.model";
+import { Character } from './character.model';
 
-
-export class UserSessionResponse
+export class UserSessionResponseOld
 {
     id?:number;
     character?:Character;
@@ -11,73 +10,79 @@ export class UserSessionResponse
     claims?:Claim[];
 }
 
-export class Claim
-{
-    id?:number;
-    title?:string;
+export class IdTokenResponse {
+    id_token: string;
 }
 
-export class User 
+export class UserSessionResponse
 {
-    id?:number
-    username?:string
-    rsi_handle?:string
-    main_character?:Character
-    roles?:Role[]
-    main_character_avatar_url?: string;
-    main_character_full_name?: string;
-    main_character_job_title?: string;
+    id?: number;
+    first_name?: string;
+    last_name?: string;
+    character_id?: number;
+    avatar?: string;
+    expires?: number;
+    roles?: number[];
+    tfa_enabled?: boolean;
 }
 
-export class Role extends Claim
-{
-    name?: string
-    description?: string
-    nested_roles?: NestedRole[]
+// deprecated?
+export class Claim {
+    id?: number;
+    title?: string;
 }
 
-export class NestedRole
-{
+export class User {
     id?: number
-    role_id?: number
-    role_nested_id?: number
-    role_nested?: Role
+    username?: string
+    rsi_handle?: string
+    main_character?: Character
+    roles?: Role[];
 }
 
-export class SignUp 
-{
-    username?:string
-    email?:string
-    password?:string
-    password_confirmation?:string
+// deprecated?
+export class Role extends Claim {
+    name?: string;
+    description?: string;
+    nested_roles?: NestedRole[];
 }
 
-export class NewPassword
-{
-    original_password?:string
-    password?:string
-    password_confirmation?:string
+export class NestedRole {
+    id?: number;
+    role_id?: number;
+    role_nested_id?: number;
+    role_nested?: Role;
 }
 
-export class TwoFactorDataObject
-{
-    qr_data_string?:string
-    seed_value?:string
+export class SignUp {
+    username?: string;
+    email?: string;
+    password?: string;
+    password_confirmation?: string;
 }
 
-export class TwoFactorAuthObject
-{
-    password:string
-    code:string
+export class NewPassword {
+    original_password?: string;
+    password?: string;
+    password_confirmation?: string;
 }
 
-export class TokenObject
-{
-    id: number
-    user_id: number
-    token: string
-    expires: Date
-    device: string
-    created_at: Date
-    is_expired: boolean
+export class TwoFactorDataObject {
+    qr_data_string?: string;
+    seed_value?: string;
+}
+
+export class TwoFactorAuthObject {
+    password: string;
+    code: string;
+}
+
+export class TokenObject {
+    id: number;
+    user_id: number;
+    token: string;
+    expires: Date;
+    device: string;
+    created_at: Date;
+    is_expired: boolean;
 }

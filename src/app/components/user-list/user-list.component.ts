@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.channel = this.cableService
-          .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveUserSession().token}`)
+          .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveSession()}`)
           .channel('AppearanceChannel');
 
         this.channel.connected().subscribe(() => {

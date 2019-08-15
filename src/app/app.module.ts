@@ -18,6 +18,7 @@ import { ElectronService } from './providers/electron.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { NgbModal, NgbModule, NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'ngx-moment';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -75,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    MomentModule
   ],
   providers: [
     Globals,

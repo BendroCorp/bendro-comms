@@ -21,7 +21,8 @@ export class NoAuthGuardService implements CanActivate {
 export class AuthGuardService implements CanActivate {
   constructor(private router: Router, private authService:AuthService) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.authService.isLoggedIn()) {
+    const loggedIn = this.authService.isLoggedIn();
+    if (loggedIn) {
       return true
     } else {
       console.log('AuthGuard: Login not detected - routing to login.');
