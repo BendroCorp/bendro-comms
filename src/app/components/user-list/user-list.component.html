@@ -1,0 +1,12 @@
+<div class="users-online-wrapper">
+  <h4>Users Online</h4>
+  <hr>
+  <ul class="user-list">
+    <li *ngFor="let user of userList">
+      <img class="avatar" src="{{parseAvatar(user.main_character_avatar_url)}}" alt="">
+      <div><strong>{{user.main_character_full_name}}</strong></div>
+      <div><small>{{user.main_character_job_title}}</small></div>
+    </li>
+  </ul>
+  
+</div>

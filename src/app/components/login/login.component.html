@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+          <div style="margin-top: 40px;">
+            <h4></h4>
+          </div>
+          <div class="card border-primary">
+            <!-- <div class="card-header">Header</div> -->
+            <div class="card-body">
+              <h4 class="card-title">Login</h4>
+              <form #loginForm="ngForm">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input class="form-control" placeholder="Email" type="email" name="email" id="email" [(ngModel)]="email">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input class="form-control" placeholder="Password" type="password" name="password" id="password" [(ngModel)]="password">
+                </div>
+                <div class="form-group">
+                  <label>TFA Code</label>
+                  <input class="form-control" placeholder="Code (If Applicable)" type="number" name="code" id="code" [(ngModel)]="tfaCode">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" (click)="doLogin()" [disabled]="loginSubmitting">Login<span *ngIf="loginSubmitting">&nbsp;<i class="fas fa-spinner fa-spin"></i></span></button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>

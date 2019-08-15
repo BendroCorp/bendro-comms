@@ -1,0 +1,39 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: url(../../../assets/background.jpg) no-repeat center fixed;
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+
+  .title {
+    color: white;
+    margin:0;
+    padding:50px 20px;
+  }
+
+}
+
+.app-wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  grid-template-columns: auto, 150px;
+  grid-template-rows: minmax(100%,auto);
+}
+
+.chat-left {
+  min-width: 300px;
+  width: auto;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.resource-right {
+  border-left: 1px solid #666;
+  width: 200px;
+  grid-row: 1;
+  grid-column: 2;
+}

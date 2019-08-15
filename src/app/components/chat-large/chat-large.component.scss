@@ -1,0 +1,51 @@
+.chat-wrapper {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 65px;
+}
+
+.messages-box {
+  // padding: 12px
+  overflow: hidden;
+}
+
+.chat-element {
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  list-style: none;
+  margin: 0;
+  padding: 8px 8px 0 8px;
+}
+
+.chat-element > li {
+  border-top: 1px solid #666;
+  padding: 4px 12px 4px 12px;
+}
+
+.chat-element > li > .chat-avatar {
+  border: 2px solid pink;
+  display: inline-block;
+  margin: 0 0 auto 0;
+  padding: 20px;
+}
+
+.chat-element > li > .chat-avatar > img {
+  height: 50px;
+  width: 50px;
+}
+
+.chat-element > li > .chat-body {
+  border: 2px solid yellow;
+  display: inline-block;
+}
+
+.chat-box {
+  padding: 12px;
+  border-top: 1px solid #666;
+}
+
+.chat-btn {
+  cursor: pointer;
+}

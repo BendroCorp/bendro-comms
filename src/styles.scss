@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootswatch/dist/flatly/bootstrap.css';
+
+html, body {
+  font-family: 'Univia Pro', sans-serif !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+}
+
+
+@font-face{
+  font-family:"Univia Pro";
+  font-style:normal;
+  font-weight:100;
+  src:url('/assets/fonts/univia-pro-100.woff2') format('woff2')
+}
+@font-face{
+  font-family:"Univia Pro";
+  font-style:normal;
+  font-weight:400;
+  src:url('/assets/fonts/univia-pro-400.woff2') format('woff2')
+  }
+@font-face{
+  font-family:"Univia Pro";
+  font-style:normal;
+  font-weight:700;
+  src:url('/assets/fonts/univia-pro-700.woff2') format('woff2')
+  }
+@font-face{
+  font-family:"Univia Pro";
+  font-style:normal;
+  font-weight:800;
+  src:url('/assets/fonts/univia-pro-800.woff2') format('woff2')
+}

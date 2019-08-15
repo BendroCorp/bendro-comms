@@ -1,0 +1,18 @@
+<div class="vc-wrapper">
+  <span *ngIf="!onVoice">
+    <button class="btn btn-outline-secondary" (click)="joinVoice()"><i class="fas fa-phone"></i></button>&nbsp;
+  </span>
+  <span *ngIf="onVoice">
+    <button class="btn btn-outline-secondary" (click)="leaveVoice()"><i class="fas fa-phone-slash"></i></button>&nbsp;
+    <span *ngIf="!micClosed"><button class="btn btn-outline-secondary"><i class="fas fa-microphone-alt"></i></button>&nbsp;</span>
+    <span *ngIf="micClosed"><button class="btn btn-danger"><i class="fas fa-microphone-alt-slash"></i></button>&nbsp;</span>
+    <span *ngIf="!muted"><button class="btn btn-outline-secondary"><i class="fas fa-volume-up"></i></button>&nbsp;</span>
+    <span *ngIf="muted"><button class="btn btn-danger"><i class="fas fa-volume-mute"></i></button>&nbsp;</span>
+  </span>
+  <button class="btn btn-outline-secondary"><i class="fas fa-cog"></i></button>
+  <!-- Holds all of the audio elements -->
+  <span class="audio-container">
+    <audio id="device" autoplay #remote></audio>
+    <audio id="me" autoplay #me></audio>
+  </span>
+</div>

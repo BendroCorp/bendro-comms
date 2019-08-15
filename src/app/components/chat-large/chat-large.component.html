@@ -1,0 +1,39 @@
+<!-- Outer Div -->
+<div class="chat-wrapper">
+  <!-- Chat Div -->
+  <div class="messages-box">
+    <ul #chatElement class="chat-element">
+      <li *ngFor="let chat of chats">
+        <!-- <button class="btn btn-sm btn-outline-primary" style="float: right;"><i class="fas fa-ellipsis-v"></i></button> -->
+        <div ngbDropdown placement="left" style="float: right;">
+          <button class="btn btn-sm btn-outline-primary" id="dropdownChatActions" ngbDropdownToggle></button>
+          <div ngbDropdownMenu aria-labelledby="dropdownChatActions">
+            <button (click)="sendChatToEdit(chat)" ngbDropdownItem>Edit</button>
+            <button ngbDropdownItem (click)="deleteChat(chat)">Delete</button>
+          </div>
+        </div>
+        <div class="chat-avatar">
+          <img src="{{baseUrl + chat.user.main_character_avatar_url}}" alt="">
+        </div>
+        <div class="chat-body">
+          <h5>{{chat.user.main_character_full_name}} <span class="font-size: 6px !important;"><small style="color: #999">{{chat.created_at | date}}</small></span></h5>
+          <p class="chat-body-text" [innerHtml]="parseChatText(chat.text) | safeHtml"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- Entry Div -->
+  <div class="form-group chat-box">
+    <div class="input-group mb-3">
+      <!-- Eventually this will be used for special things -->
+      <!-- <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div> -->
+      <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
+      <input #chatTextInput class="form-control" placeholder="Type to chat..." [disabled]="!canSendChat" type="text" id="chatText" name="chatText" [(ngModel)]="chatText" (keydown)="sendChat($event)">
+      <div *ngIf="editChat" class="input-group-append">
+        <span class="input-group-text">EDIT MODE</span>
+      </div>
+    </div>
+  </div>
+</div>
