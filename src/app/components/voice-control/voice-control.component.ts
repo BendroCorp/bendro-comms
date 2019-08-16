@@ -20,6 +20,8 @@ import * as webrtc from 'webrtc-sdk';
 // https://hackernoon.com/angular-pro-tip-how-to-dynamically-create-components-in-body-ba200cc289e6
 // Handle multiple clients?? https://medium.com/@meetdianacheung/how-to-handle-multiple-webrtc-peer-connections-in-a-single-client-e316c452aad9
 
+// Electron does not handle live audio? https://github.com/electron/electron/issues/11112
+
 export class VoiceControlComponent implements OnInit, OnDestroy {
   peerConnection: RTCPeerConnection;
   localStream: any;
