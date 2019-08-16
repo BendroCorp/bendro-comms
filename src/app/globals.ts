@@ -4,7 +4,7 @@ import { AppConfig } from '../environments/environment';
 
 @Injectable()
 export class Globals {
-  forceProduction: boolean = false;
+  forceProduction: boolean = true;
 
   readonly wsRoot: string = (AppConfig.production || this.forceProduction) ? 'wss://api.bendrocorp.com/cable' : 'ws://localhost:3000/cable';
   readonly baseUrlRoot: string = (AppConfig.production || this.forceProduction) ? 'https://api.bendrocorp.com' : 'http://localhost:3000';

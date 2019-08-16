@@ -24,21 +24,27 @@
   padding: 4px 12px 4px 12px;
 }
 
+.chat-item {
+  clear: both;
+}
+
 .chat-element > li > .chat-avatar {
-  border: 2px solid pink;
-  display: inline-block;
-  margin: 0 0 auto 0;
-  padding: 20px;
+  float: left;
+  display: block;
+  padding: 0 10px 10px 10px;
+  width: 90px;
 }
 
 .chat-element > li > .chat-avatar > img {
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
 }
 
 .chat-element > li > .chat-body {
-  border: 2px solid yellow;
-  display: inline-block;
+  float: left;
+  display: block;
+  width: calc(100% - 120px);
 }
 
 .chat-box {

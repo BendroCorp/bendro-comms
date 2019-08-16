@@ -22,6 +22,7 @@
   grid-template-columns: 8fr 1fr;
   grid-template-columns: auto, 150px;
   grid-template-rows: minmax(100%,auto);
+  overflow: hidden;
 }
 
 .chat-left {

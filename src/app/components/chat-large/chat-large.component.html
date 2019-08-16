@@ -3,7 +3,7 @@
   <!-- Chat Div -->
   <div class="messages-box">
     <ul #chatElement class="chat-element">
-      <li *ngFor="let chat of chats">
+      <li class="chat-item" *ngFor="let chat of chats">
         <!-- <button class="btn btn-sm btn-outline-primary" style="float: right;"><i class="fas fa-ellipsis-v"></i></button> -->
         <div ngbDropdown placement="left" style="float: right;">
           <button class="btn btn-sm btn-outline-primary" id="dropdownChatActions" ngbDropdownToggle></button>
@@ -13,10 +13,10 @@
           </div>
         </div>
         <div class="chat-avatar">
-          <img src="{{baseUrl + chat.user.main_character_avatar_url}}" alt="">
+          <img src="{{chat.user.main_character_avatar_url}}" alt="">
         </div>
         <div class="chat-body">
-          <h5>{{chat.user.main_character_full_name}} <span class="font-size: 6px !important;"><small style="color: #999">{{chat.created_at | date | amTimeAgo}}</small></span></h5>
+          <h5>{{chat.user.main_character_full_name}} <span class="font-size: 6px !important;"><small style="color: #999">{{chat.created_at | amTimeAgo}}</small></span></h5>
           <p class="chat-body-text" [innerHtml]="parseChatText(chat.text) | safeHtml"></p>
         </div>
       </li>

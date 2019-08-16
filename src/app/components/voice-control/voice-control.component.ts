@@ -40,143 +40,147 @@ export class VoiceControlComponent implements OnInit, OnDestroy {
   joinVoice() {
     // https://github.com/stephenlb/webrtc-sdk
     // let phone = webrtc.PHONE();
-    // this.showRemote();
+    this.showRemote();
   }
 
   leaveVoice() {
     this.hangup();
   }
 
-  // async setupWebRtc() {
-  //   this.senderId = this.guid();
-  //   // this.database.on("child_added", this.readMessage.bind(this));
-  //   this.channel = this.cableService
-  //         .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveSession()}`)
-  //         .channel('VoiceChannel');
-  //   this.wsSubscription = this.channel.received().subscribe((message) => {
-  //     // console.log('Chat received from ActionCable!');
-  //     // console.log(chatMessage);
-  //     // this.chatService.notify(chatMessage);
-  //     console.log(this.peerConnection);
-  //     // this.readMessage.bind(this);
-  //     this.readMessage(message);
-  //   });
+  async setupWebRtc() {
+    this.senderId = this.guid();
+    // this.database.on("child_added", this.readMessage.bind(this));
+    this.channel = this.cableService
+          .cable(`${this.globals.wsRoot}?token=${this.authService.retrieveSession()}`)
+          .channel('VoiceChannel');
+    this.wsSubscription = this.channel.received().subscribe((message) => {
+      // console.log('Chat received from ActionCable!');
+      // console.log(chatMessage);
+      // this.chatService.notify(chatMessage);
+      console.log(this.peerConnection);
+      // this.readMessage.bind(this);
+      this.readMessage(message);
+    });
 
-  //   try {
-  //     this.peerConnection = new RTCPeerConnection({
-  //       iceServers: [
-  //         { urls: "stun:stun.services.mozilla.com" },
-  //         { urls: "stun:stun.l.google.com:19302" }
-  //       ]
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     this.peerConnection = new RTCPeerConnection({
-  //       iceServers: [
-  //         { urls: "stun:stun.services.mozilla.com" },
-  //         { urls: "stun:stun.l.google.com:19302" }
-  //       ]
-  //     });
-  //   }
+    try {
+      this.peerConnection = new RTCPeerConnection({
+        iceServers: [
+          { urls: "stun:stun.services.mozilla.com" },
+          { urls: "stun:stun.l.google.com:19302" }
+        ]
+      });
+    } catch (error) {
+      console.log(error);
+      this.peerConnection = new RTCPeerConnection({
+        iceServers: [
+          { urls: "stun:stun.services.mozilla.com" },
+          { urls: "stun:stun.l.google.com:19302" }
+        ]
+      });
+    }
 
-  //   this.peerConnection.onicecandidate = event => {
-  //     event.candidate ? this.sendMessage(this.senderId, JSON.stringify({ ice: event.candidate })) : console.log("Sent All Ice");
-  //   }
+    this.peerConnection.onicecandidate = event => {
+      event.candidate ? this.sendMessage(this.senderId, JSON.stringify({ ice: event.candidate })) : console.log("Sent All Ice");
+    }
 
-  //   // use ontrack -- this is where we need to add remotes and somehow keep track of all of them :/
-  //   // does this even actually work right?
-  //   // This will only get me two people....
-  //   this.peerConnection.ontrack = event => {
-  //     // need to have an element for every remote audio stream...
-  //     this.remote.nativeElement.srcObject = event.streams[0]; // does this get us multiple streams or just the one??
-  //   }
+    // use ontrack -- this is where we need to add remotes and somehow keep track of all of them :/
+    // does this even actually work right?
+    // This will only get me two people....
+    this.peerConnection.ontrack = event => {
+      // need to have an element for every remote audio stream...
+      this.remote.nativeElement.srcObject = event.streams[0]; // does this get us multiple streams or just the one??
+    }
 
-  //   this.showMe();
+    this.showMe();
 
-  //   return;
-  // }
+    return;
+  }
 
-  // sendMessage(senderId, data) {
-  //   // var msg = this.channel.push({ sender: senderId, message: data });
-  //   this.channel.perform('message_relay', { sender: senderId, message: data });
-  //   // msg.remove();
-  // }
+  sendMessage(senderId, data) {
+    // var msg = this.channel.push({ sender: senderId, message: data });
+    this.channel.perform('message_relay', { sender: senderId, message: data });
+    // msg.remove();
+  }
 
-  // readMessage(data) {
-  //   if (!data) return;
-  //   try {
-  //     var msg = JSON.parse(data.message);
-  //     // let personalData = data.val().personalData; // what is this even for??
-  //     var sender = data.sender;
-  //     if (sender != this.senderId) {
-  //       if (msg.ice != undefined && this.peerConnection != null) {
-  //         this.peerConnection.addIceCandidate(new RTCIceCandidate(msg.ice));
-  //       } else if (msg.sdp.type == "offer") {
-  //         this.onVoice = true;
-  //         this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-  //           .then(() => this.peerConnection.createAnswer())
-  //           .then(answer => this.peerConnection.setLocalDescription(answer))
-  //           .then(() => this.sendMessage(this.senderId, JSON.stringify({ sdp: this.peerConnection.localDescription })));
-  //       } else if (msg.sdp.type == "answer") {
-  //         this.onVoice = true;
-  //         this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg.sdp));
-  //       }
-  //     } else {
-  //       console.log('This message is from the current sender so we can relax.')
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  readMessage(data) {
+    if (!data) return;
+    try {
+      var msg = JSON.parse(data.message);
+      // let personalData = data.val().personalData; // what is this even for??
+      var sender = data.sender;
+      if (sender != this.senderId) {
+        if (msg.ice != undefined && this.peerConnection != null) {
+          this.peerConnection.addIceCandidate(new RTCIceCandidate(msg.ice));
+        } else if (msg.sdp.type == "offer") {
+          this.onVoice = true;
+          this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg.sdp))
+            .then(() => this.peerConnection.createAnswer())
+            .then(answer => this.peerConnection.setLocalDescription(answer))
+            .then(() => this.sendMessage(this.senderId, JSON.stringify({ sdp: this.peerConnection.localDescription })));
+        } else if (msg.sdp.type == "answer") {
+          this.onVoice = true;
+          this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg.sdp));
+        }
+      } else {
+        console.log('This message is from the current sender so we can relax.')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // showMe() {
-  //   navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-  //     .then(stream => (this.me.nativeElement.srcObject = stream))
-  //     .then(stream => {
-  //       // this.peerConnection.addTrack(stream, );
-  //       // this.localStream = stream;
-  //       // TODO: Better handling of tracks. We need to handle removing them as well
-  //       stream.getTracks().forEach((track) => {
-  //         this.peerConnection.addTrack(track, stream);
-  //       });
-  //     });
-  // }
+  showMe() {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(stream => (this.me.nativeElement.srcObject = stream))
+      .then(stream => {
+        this.me.nativeElement.muted = true;
+        this.me.nativeElement.autoplay = true;
+        // this.peerConnection.addTrack(stream, );
+        // this.localStream = stream;
+        // TODO: Better handling of tracks. We need to handle removing them as well
+        stream.getTracks().forEach((track) => {
+          this.peerConnection.addTrack(track, stream);
+        });
+      });
+      
+  }
 
-  // async showRemote() {
-  //   try {
-  //     if (!this.peerConnection) {
-  //       await this.setupWebRtc();
-  //     }
-  //     this.peerConnection.createOffer()
-  //       .then(offer => this.peerConnection.setLocalDescription(offer))
-  //       .then(() => {
-  //         this.sendMessage(this.senderId, JSON.stringify({ sdp: this.peerConnection.localDescription }));
-  //         console.log(this.peerConnection);
-  //         this.onVoice = true;
-  //       });
-  //   } catch (error) {
-  //     this.setupWebRtc();
-  //     console.error(error);
-  //   }
-  // }
+  async showRemote() {
+    try {
+      if (!this.peerConnection) {
+        await this.setupWebRtc();
+      }
+      this.peerConnection.createOffer()
+        .then(offer => this.peerConnection.setLocalDescription(offer))
+        .then(() => {
+          this.sendMessage(this.senderId, JSON.stringify({ sdp: this.peerConnection.localDescription }));
+          console.log(this.peerConnection);
+          this.onVoice = true;
+        });
+    } catch (error) {
+      this.setupWebRtc();
+      console.error(error);
+    }
+  }
 
   hangup() {
-    // this.peerConnection.close();
-    // if (this.localStream) {
-    //   this.me.nativeElement.srcObject = null;
-    //   let tracks = this.localStream.getTracks();
-    //   for (let i = 0; i < tracks.length; i++) {
-    //     tracks[i].stop();
-    //   }
-    // }
+    this.peerConnection.close();
+    if (this.localStream) {
+      this.me.nativeElement.srcObject = null;
+      let tracks = this.localStream.getTracks();
+      for (let i = 0; i < tracks.length; i++) {
+        tracks[i].stop();
+      }
+    }
 
-    // if (this.wsSubscription) {
-    //   this.wsSubscription.unsubscribe();
-    //   this.wsSubscription = null;
-    // }
+    if (this.wsSubscription) {
+      this.wsSubscription.unsubscribe();
+      this.wsSubscription = null;
+    }
 
-    // this.onVoice = false;
-    // this.peerConnection = null;
+    this.onVoice = false;
+    this.peerConnection = null;
+    this.me.nativeElement.muted = true;
   }
 
   ngOnInit() {

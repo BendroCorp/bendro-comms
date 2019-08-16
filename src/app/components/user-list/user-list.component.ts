@@ -18,12 +18,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   userList: User[];
   appearanceWsSubscription: Subscription;
   channel: Channel;
-  baseUrl: string = "https://my.bendrocorp.com/";
+  baseUrl: string = 'https://my.bendrocorp.com/';
   speakingSubscription: Subscription;
 
   constructor(private cableService: ActionCableService,
-    private globals: Globals, 
-    private authService: AuthService, 
+    private globals: Globals,
+    private authService: AuthService,
     private confirmationModal: ConfirmationModal,
     private voiceService: VoiceService) { }
 
@@ -45,12 +45,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   // TODO
 
-  parseAvatar(avatarUri: string) : string {
-    if (AppConfig.production) {
-      return avatarUri;
-    } else {
-      return this.baseUrl + avatarUri;
-    }
+  parseAvatar(avatarUri: string): string {
+    return avatarUri;
   }
 
   ngOnDestroy() {
